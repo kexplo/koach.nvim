@@ -44,6 +44,7 @@ class KoachPlugin(object):
             if not any([w for w in self.nvim.windows
                         if os.path.basename(w.buffer.name) == name]):
                 self.nvim.command('set splitright')
+                self.nvim.command('vnew')
                 self.nvim.command('buffer {0}'.format(name))
                 # set instant scratch buffer
                 self.nvim.command('setlocal buftype=nofile bufhidden=delete '

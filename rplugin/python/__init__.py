@@ -44,7 +44,7 @@ class KoachPlugin(object):
         buf = self.nvim.current.buffer
         buf.name = name
         # set instant scratch buffer
-        self.nvim.command('setlocal buftype=nofile bufhidden=delete'
+        self.nvim.command('setlocal buftype=nofile bufhidden=delete '
                           'noswapfile')
         return buf
 

@@ -38,9 +38,7 @@ class KoachPlugin(object):
         bufs = [b for b in self.nvim.buffers
                 if os.path.basename(b.name) == name]
         if bufs:
-            # choose first one
-            buf = bufs[0]
-            # re-open buffer
+            # re-open buffer if it closed
             if not any([w for w in self.nvim.windows
                         if os.path.basename(w.buffer.name) == name]):
                 self.nvim.command('set splitright')
@@ -49,7 +47,9 @@ class KoachPlugin(object):
                 # set instant scratch buffer
                 self.nvim.command('setlocal buftype=nofile bufhidden=delete '
                                   'noswapfile')
-            return buf
+                return self.nvim.current.buffer
+            # choose first one
+            return bufs[0]
         # create new buffer
         self.nvim.command('set splitright')
         self.nvim.command('vnew')

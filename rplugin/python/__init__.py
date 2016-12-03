@@ -35,13 +35,14 @@ class KoachPlugin(object):
 
     def ensure_buffer(self, name):
         # return buffer if exists
-        bufs = [b for b in self.nvim.buffers if b.name == name]
+        bufs = [b for b in self.nvim.buffers
+                if os.path.basename(b.name) == name]
         if bufs:
             # choose first one
             buf = bufs[0]
             # re-open buffer
             if not any(list(self.nvim.windows),
-                       lambda x: x.buffer.name == name):
+                       lambda x: os.path.basename(x.buffer.name) == name):
                 self.nvim.command('set splitright')
                 self.nvim.command('buffer {0}'.format(name))
                 # set instant scratch buffer
